@@ -1,0 +1,6 @@
+Revision history for Perl extension biz-br.
+
+0.01  Tue Jun  7 08:06:16 2005
+	- original version; created by h2xs 1.23 with options
+		-AX -n biz-br
+

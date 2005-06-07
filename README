@@ -1,0 +1,37 @@
+biz-br version 0.01
+===================
+
+The intention of this distribution is to provide functionality
+on Brazilian business-related subjects.
+The distribution is starting up with a simple check
+to test if a CPF number is correct or not. More is to come.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+No dependencies so far. It can (must) change as the
+distribution grows larger.
+
+TO DO
+
+* abstract for Makefile.PL
+* include test for _dot() with @a < @b 
+* include format_cpf() in Business::BR::CPF
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2005 by A. R. Ferreira
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.6 or,
+at your option, any later version of Perl 5 you may have available.
+
+
