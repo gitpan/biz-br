@@ -1,5 +1,5 @@
-biz-br version 0.01
-===================
+biz-br version 0.00_02
+======================
 
 The intention of this distribution is to provide functionality
 on Brazilian business-related subjects.
@@ -17,14 +17,14 @@ To install this module type the following:
 
 DEPENDENCIES
 
-No dependencies so far. It can (must) change as the
-distribution grows larger.
+  Scalar::Util
+  Test::More
 
 TO DO
 
-* abstract for Makefile.PL
 * include test for _dot() with @a < @b 
-* include format_cpf() in Business::BR::CPF
+* include rand_cpf() in Business::BR::CPF
+* add new module Business::BR::CNPJ
 
 COPYRIGHT AND LICENCE
 

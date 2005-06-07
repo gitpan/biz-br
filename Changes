@@ -1,5 +1,14 @@
 Revision history for Perl extension biz-br.
 
+0.00_02 Tue Jun 7 2005
+        - fixed the missing ABSTRACT
+	- added flatten_cpf(), format_cpf(), parse_cpf() to Business::BR::CPF
+	- added corresponding tests
+
+0.00_01 Tue Jun 7 2005
+        - Business::BR::CPF provides test_cpf()
+        - submitted to CPAN 
+
 0.01  Tue Jun  7 08:06:16 2005
 	- original version; created by h2xs 1.23 with options
 		-AX -n biz-br

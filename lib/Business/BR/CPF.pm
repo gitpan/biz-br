@@ -13,9 +13,12 @@ our @ISA = qw(Exporter);
 #our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 #our @EXPORT = qw();
 
+our @EXPORT_OK = qw( flatten_cpf format_cpf parse_cpf );
 our @EXPORT = qw( test_cpf );
 
-our $VERSION = '0.00_01';
+our $VERSION = '0.00_02';
+
+use Scalar::Util qw(looks_like_number); 
 
 use Business::BR qw(_dot);
 
@@ -37,6 +40,29 @@ sub test_cpf {
   return ($s2==0 || $s2==1 && $cpf[10]==0) ? 1 : 0;
 }
 
+sub flatten_cpf {
+  my $cpf = shift;
+  if (looks_like_number($cpf) && int($cpf)==$cpf) {
+	  return sprintf('%011s', $cpf)
+  }
+  $cpf =~ s/\D//g;
+  return $cpf;
+}   
+
+sub format_cpf {
+  my $cpf = flatten_cpf shift;
+  $cpf =~ s/^(...)(...)(...)(..).*/$1.$2.$3-$4/;
+  return $cpf;
+}
+
+sub parse_cpf {
+  my $cpf = flatten_cpf shift;
+  my ($base, $dv) = $cpf =~ /(\d{9})(\d{2})/;
+  if (wantarray) {
+    return ($base, $dv);
+  }
+  return { base => $base, dv => $dv };
+}
 
 
 1;
@@ -121,12 +147,44 @@ NOTE. I<Always use strings>. A valid CPF like '099.998.112-99'
 given as the number 9999811299 (or 99_998_112_99) 
 is misinterpreted as missing digits.
 
+=item B<flatten_cpf>
+
+  flatten_cpf(99); # returns '00000000099'
+  flatten_cpf('999.999.999-99'); # returns '99999999999'
+
+Flattens a candidate for a CPF number. In case,
+the argument is an integer, it is formatted to at least
+eleven digits. Otherwise, it is stripped of any non-digit
+characters and returned as it is.
+
+=item B<format_cpf>
+
+  format_cpf('00000000000'); # returns '000.000.000-00'
+
+Formats its input into '000.000.000-00' mask.
+First, the argument is flattened and then
+dots and hyphen are added I<if> to the first
+11 digits of the result.
+
+=item B<parse_cpf>
+
+  ($base, $dv) = parse_cpf($cpf);
+  $hashref = parse_cpf('999.222.111-00'); # { base => '999222111', dv => '00' }
+
+Splits a candidate for CPF number into base and check
+digits (dv - dígitos de verificação). It flattens
+the argument before splitting it into 9- and 2-digits
+parts. In a list context,
+returns a two-element list with the base and the check
+digits. In a scalar context, returns a hash ref
+with keys 'base' and 'dv' and associated values.
 
 =back
 
 =head2 EXPORT
 
-C<test_cpf> is exported by default. 
+C<test_cpf> is exported by default. C<flatten_cpf>, C<format_cpf>,
+and C<parse_cpf> can be exported on demand.
 
 
 =head1 THE CHECK EQUATIONS

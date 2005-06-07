@@ -6,9 +6,10 @@ WriteMakefile(
     NAME              => 'biz-br',
     VERSION_FROM      => 'lib/Business/BR.pm', # finds $VERSION
     PREREQ_PM         => {
-		# e.g., Module::Name => 1.1
+		Scalar::Util => 0, 
+		Test::More   => 0, 
 	}, 
     ($] >= 5.005 ?     
-      (#ABSTRACT_FROM  => 'lib/Business/BR.pm', # retrieve abstract from module
+      (ABSTRACT  => 'Modules for Brazilian business-related subjects',
        AUTHOR         => 'A. R. Ferreira <ferreira@cpan.org>') : ()),
 );

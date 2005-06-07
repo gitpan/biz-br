@@ -15,7 +15,7 @@ our @ISA = qw(Exporter);
 
 our @EXPORT_OK = qw( _dot );
 
-our $VERSION = '0.00_01';
+our $VERSION = '0.00_02';
 
 # my $s = dot(\@a, \@b);
 #
@@ -119,7 +119,8 @@ As you might have guessed, this is not the first Perl distribution
 to approach this kind of functionality. Take a look at
 
   http://search.cpan.org/search?module=Brasil::Checar::CPF
-  http://search.cpan.org/search?module=Brasil::Checar::CNPJ
+  http://search.cpan.org/search?module=Brasil::Checar::CGC
+  http://search.cpan.org/~mamawe/Algorithm-CheckDigits-0.38/CheckDigits/M11_004.pm
 
 The namespace has been chosen based on similar modules
 for other countries, like Business::FR::SSN which tests

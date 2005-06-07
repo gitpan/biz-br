@@ -6,4 +6,7 @@ lib/Business/BR.pm
 lib/Business/BR/CPF.pm
 t/dot.t
 t/cpf.t
+t/flatten_cpf.t
+t/format_cpf.t
+t/parse_cpf.t
 META.yml                                 Module meta-data (added by MakeMaker)
