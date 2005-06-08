@@ -1,10 +1,11 @@
-biz-br version 0.00_02
+biz-br version 0.00_03
 ======================
 
 The intention of this distribution is to provide functionality
 on Brazilian business-related subjects.
 The distribution is starting up with a simple check
 to test if a CPF number is correct or not. More is to come.
+This includes tests for CNPJ but this code is not tested.
 
 INSTALLATION
 
@@ -23,8 +24,11 @@ DEPENDENCIES
 TO DO
 
 * include test for _dot() with @a < @b 
-* include rand_cpf() in Business::BR::CPF
-* add new module Business::BR::CNPJ
+* revise POD for new module Business::BR::CNPJ
+* write tests for new module Business::BR::CNPJ
+* write Business::BR::Ids
+* write Business::BR::Ids::Extra for rand_cpf() and rand_cnpj()
+* rename the distribution to Business-Br-Ids
 
 COPYRIGHT AND LICENCE
 

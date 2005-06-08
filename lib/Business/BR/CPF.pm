@@ -16,11 +16,20 @@ our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( flatten_cpf format_cpf parse_cpf );
 our @EXPORT = qw( test_cpf );
 
-our $VERSION = '0.00_02';
+our $VERSION = '0.00_03';
 
 use Scalar::Util qw(looks_like_number); 
 
-use Business::BR qw(_dot);
+use Business::BR::Biz::Common qw(_dot);
+
+sub flatten_cpf {
+  my $cpf = shift;
+  if (looks_like_number($cpf) && int($cpf)==$cpf) {
+	  return sprintf('%011s', $cpf)
+  }
+  $cpf =~ s/\D//g;
+  return $cpf;
+}   
 
 
 # there is a subtle difference here between the return for
@@ -28,8 +37,7 @@ use Business::BR qw(_dot);
 # and one that does not satisfy the check equations (0).
 # Correct CPF numbers return 1.
 sub test_cpf {
-  my $cpf = shift;
-  $cpf =~ s/\D//g; # discard any non-digit (for dumping '.', '-', spaces, whatever)
+  my $cpf = flatten_cpf shift;
   return undef if length $cpf != 11;
   my @cpf = split '', $cpf;
   my $s1 = _dot([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0], \@cpf) % 11;
@@ -40,14 +48,6 @@ sub test_cpf {
   return ($s2==0 || $s2==1 && $cpf[10]==0) ? 1 : 0;
 }
 
-sub flatten_cpf {
-  my $cpf = shift;
-  if (looks_like_number($cpf) && int($cpf)==$cpf) {
-	  return sprintf('%011s', $cpf)
-  }
-  $cpf =~ s/\D//g;
-  return $cpf;
-}   
 
 sub format_cpf {
   my $cpf = flatten_cpf shift;
@@ -78,7 +78,7 @@ Business::BR::CPF - Perl module to test for correct CPF numbers
   use Business::BR::CPF; 
 
   print "ok " if test_cpf('390.533.447-05'); # prints 'ok '
-  print "bad " if test_cpf('231.002.999-00'); # prints 'bad '
+  print "bad " unless test_cpf('231.002.999-00'); # prints 'bad '
 
 =head1 DESCRIPTION
 
@@ -143,9 +143,9 @@ just check against a regex:
   warn "bad CPF: does not match mask '___.___.___-__'" 
     unless ($cpf =~ /^\d{3}\.\d{3}\.\d{3}-\d{2}$/);
 
-NOTE. I<Always use strings>. A valid CPF like '099.998.112-99'
-given as the number 9999811299 (or 99_998_112_99) 
-is misinterpreted as missing digits.
+NOTE. Integer numbers like 9999811299 (or 99_998_112_99) 
+with fewer than 11 digits will be normalized (eg. to
+"09999811299") before testing.
 
 =item B<flatten_cpf>
 
@@ -163,7 +163,7 @@ characters and returned as it is.
 
 Formats its input into '000.000.000-00' mask.
 First, the argument is flattened and then
-dots and hyphen are added I<if> to the first
+dots and hyphen are added to the first
 11 digits of the result.
 
 =item B<parse_cpf>
@@ -199,13 +199,13 @@ To check whether a CPF is correct or not, it has to satisfy
 the check equations:
 
   c[1]*10+c[2]*9+c[3]*8+c[4]*7+c[5]*6+
-          c[6]*5+c[7]*4+c[8]*3+c[9]*2+dv[1] = 0 (mod 11)
+          c[6]*5+c[7]*4+c[8]*3+c[9]*2+dv[1] = 0 (mod 11) or
                                             = 1 (mod 11) (if dv[1]=0)
 
 and 
 
   c[2]*10+c[3]*9+c[4]*8+c[5]*7+c[6]*6+
-          c[7]*5+c[8]*4+c[9]*3+dv[1]*2+dv[2] = 0 (mod 11)
+          c[7]*5+c[8]*4+c[9]*3+dv[1]*2+dv[2] = 0 (mod 11) or
                                              = 1 (mod 11) (if dv[2]=0)
 
 

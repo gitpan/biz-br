@@ -1,12 +1,16 @@
+---
 # http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         biz-br
-version:      0.00_02
-version_from: lib/Business/BR.pm
-installdirs:  site
+version:      0.00_03
+version_from: lib/Business/BR/Biz.pm
+author:
+  - Adriano Ferreira <ferreira@cpan.org>
+abstract: Modules for Brazilian business-related subjects
+license: perl
 requires:
     Scalar::Util:                  0
     Test::More:                    0
+installdirs:  site
 
 distribution_type: module
 generated_by: ExtUtils::MakeMaker version 6.17

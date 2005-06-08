@@ -4,9 +4,13 @@ MANIFEST
 README
 lib/Business/BR.pm
 lib/Business/BR/CPF.pm
+lib/Business/BR/CNPJ.pm
+lib/Business/BR/Biz.pm
+lib/Business/BR/Biz/Common.pm
 t/dot.t
-t/cpf.t
-t/flatten_cpf.t
-t/format_cpf.t
-t/parse_cpf.t
+t/cpf_test.t
+t/cpf_flatten.t
+t/cpf_format.t
+t/cpf_parse.t
+t/cnpj_test.t
 META.yml                                 Module meta-data (added by MakeMaker)
