@@ -4,13 +4,13 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME              => 'biz-br',
-    VERSION_FROM      => 'lib/Business/BR/Biz.pm', # finds $VERSION
+    VERSION_FROM      => 'lib/biz-br.pod', # finds $VERSION
     PREREQ_PM         => {
-		Scalar::Util => 0, 
-		Test::More   => 0, 
+		Business::BR::Ids => 0,
 	}, 
     ($] >= 5.005 ?     
-      (ABSTRACT  => 'Modules for Brazilian business-related subjects',
+      (ABSTRACT  => 'Deprecated, superseded by Business-BR-Ids distribution',
+	   #ABSTRACT_FROM => 'lib/biz-br.pod',
        AUTHOR         => 'A. R. Ferreira <ferreira@cpan.org>') : ()),
 	NO_META => 1,
 );
